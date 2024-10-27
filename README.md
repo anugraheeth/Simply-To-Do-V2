@@ -18,7 +18,7 @@ Check out the live demo [here](https://anugraheeth.github.io/Simply-To-Do-V2/) t
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/simply-todo-v2.git
+   git clone https://github.com/anugraheeth/simply-todo-v2.git
    cd simply-todo-v2
    ```
 
