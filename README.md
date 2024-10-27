@@ -1,7 +1,3 @@
-Here's a README for "Simply To Do V2" in React:
-
----
-
 # Simply To Do V2
 
 Simply To Do V2 is a minimalist and user-friendly to-do web application built with React, converted from the original HTML, CSS, and JavaScript project "Simply To Do." This version leverages React’s component-based architecture to improve code organization, maintainability, and performance. Try the live demo linked below!
@@ -62,6 +58,3 @@ Feel free to submit issues or pull requests. Contributions are welcome!
 
 This project is licensed under the MIT License.
 
----
-
-Let me know if you need further customization for your README!
