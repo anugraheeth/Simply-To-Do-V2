@@ -93,6 +93,7 @@ ul li{
   align-items: center;
   min-width: 400px;
 }
+
 .tsk{
     display: flex;
     align-items: center;
@@ -115,16 +116,12 @@ img{
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-top: 30px;
     width: 100%;
     list-style: none;
 }
  @media(max-width:480px){
     .container{
-        width: 80%;
-    }
-    .details{
-        width:80%;
+        width: 95%;
     }
     .container p{
         font-size: 14px;
@@ -132,23 +129,37 @@ img{
     h1{
         font-size: 1.2em;
     }
-    #number{
-        font-size: 20px ;
+    #ip{
+        margin: 0;
+        max-width: 52%;
     }
+    .input{
+        margin: 5%  10%;
+        display: flex;
+        justify-content: space-around;
+        gap: 0;
+      }
     button{
         font-size: 20px;
+
     }
     .status{
         gap: 25px;
+        max-width: 80%;
     }
     .tsk{
+        margin-bottom: 2%;
         gap:5px;
     }
     .task{
+        margin-top: 2%;
         gap:5px;
     }
     .taskitems img{
         width: 22px;
         height: 22px;
+    }
+    ul li{
+        min-width: 250px;
     }
  }

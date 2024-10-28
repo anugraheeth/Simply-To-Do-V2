@@ -50,6 +50,133 @@ Check out the live demo [here](https://anugraheeth.github.io/Simply-To-Do-V2/) t
 - **JavaScript** - Functionality
 - **LocalStorage** - Persist data between sessions
 
+## Code Explanation
+
+This section details the core JavaScript and React logic.
+
+### State Variables
+
+- **tasks**: Stores the list of tasks. It is updated every time a task is added, removed, edited, or reordered.
+- **newtask**: Stores the current task input text.
+- **draggedIndex**: Holds the index of a task when dragging starts to enable task reordering.
+
+### useEffect Hook
+
+The `useEffect` hook runs when the component mounts, loading any existing tasks from `localStorage`:
+
+```javascript
+useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem("tasks"));
+    if (stored) {
+        setTasks(stored);
+    }
+}, []);
+```
+
+### Functions
+
+#### inputTask
+
+This function updates `newtask` whenever the input field value changes:
+
+```javascript
+function inputTask(e) {
+    setNewTask(e.target.value);
+}
+```
+
+#### add
+
+The `add` function is triggered when a new task is added:
+
+```javascript
+function add() {
+    if (newtask !== "") {
+        setTasks(prevTasks => {
+            const updatedTasks = [...prevTasks, newtask];
+            localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+            return updatedTasks;
+        });
+        setNewTask("");
+    }
+}
+```
+
+- **Logic**: If `newtask` is not empty, a new task is added to `tasks`. The list is then saved to `localStorage`, ensuring persistence.
+
+#### edit
+
+The `edit` function allows a task to be edited by setting `newtask` to the selected task and removing the original task from `tasks`:
+
+```javascript
+function edit(index) {
+    const value = tasks.filter((_, i) => i === index);
+    setNewTask(value);
+    removeTask(index);
+}
+```
+
+- **Logic**: `edit` identifies the selected task based on the index, sets it as `newtask` for editing, and then calls `removeTask` to remove the task.
+
+#### removeTask
+
+The `removeTask` function removes a specific task by its index:
+
+```javascript
+function removeTask(index) {
+    setTasks(prevTasks => {
+        const updatedTasks = prevTasks.filter((_, i) => i !== index);
+        localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+        return updatedTasks;
+    });
+}
+```
+
+- **Logic**: The function filters out the task at `index`, updates `tasks`, and saves the modified list to `localStorage`.
+
+### Drag and Drop Functions
+
+#### handleDragStart
+
+Stores the index of the task being dragged:
+
+```javascript
+const handleDragStart = (index) => {
+    setDraggedIndex(index);
+};
+```
+
+#### handleDragOver
+
+Allows the dragged item to be dropped in a new position:
+
+```javascript
+const handleDragOver = (index) => {
+    const newTasks = [...tasks];
+    const [removed] = newTasks.splice(draggedIndex, 1);
+    newTasks.splice(index, 0, removed);
+    setTasks(newTasks);
+};
+```
+
+- **Logic**: The dragged task is removed from its original position and inserted at the new index. `newTasks` is updated without directly affecting `tasks` until the drag ends.
+
+#### handleDragEnd
+
+Ends the drag operation, clears `draggedIndex`, and saves the reordered tasks:
+
+```javascript
+const handleDragEnd = () => {
+    setDraggedIndex(null);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+};
+```
+
+### Rendering
+
+Each task is rendered as an `li` element with drag-and-drop capabilities, and icons for editing and deleting tasks.
+
+
 ## Contributing
 
 Feel free to submit issues or pull requests. Contributions are welcome!

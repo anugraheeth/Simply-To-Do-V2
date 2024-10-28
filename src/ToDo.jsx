@@ -7,6 +7,7 @@ function Todo() {
     //statefull variables
     const [tasks, setTasks] = useState([]);
     const [newtask, setNewTask] = useState("");
+    const [draggedIndex, setDraggedIndex] = useState(null);
 
     //useeffect to load the stored data to task list when mounted
     useEffect(() => {
@@ -50,6 +51,23 @@ function Todo() {
         });
     }
 
+    //drag event handler functions
+    const handleDragStart = (index) => {
+        setDraggedIndex(index);
+    };
+
+    const handleDragOver = (index) => {
+        const newTasks = [...tasks];
+        const [removed] = newTasks.splice(draggedIndex, 1);
+        newTasks.splice(index, 0, removed);
+        setTasks(newTasks);
+    };
+
+    const handleDragEnd = () => {
+        setDraggedIndex(null);
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    };
+    
     return (
         <div className="container">
             <div className="status">
@@ -62,7 +80,17 @@ function Todo() {
             <div>
                 <ul className="task" id="task">
                     {tasks.map((task, index) =>
-                        <li key={index} className="tsk">
+                        <li
+                            key={index}
+                            className="tsk"
+                            draggable
+                            onDragStart={() => handleDragStart(index)}
+                            onDragOver={(e) => {
+                                                e.preventDefault();
+                                                handleDragOver(index);
+                                        }}
+                        onDragEnd={handleDragEnd}
+                        >
                             {task}
                             <div className="icons">
                             <img src={edt} alt="Edit task name" onClick = {() => edit(index)} />
