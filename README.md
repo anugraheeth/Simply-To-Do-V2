@@ -2,7 +2,7 @@
 
 Simply To Do V2 is a minimalist and user-friendly to-do web application built with React, converted from the original HTML, CSS, and JavaScript project "Simply To Do." This version leverages React’s component-based architecture to improve code organization, maintainability, and performance. Try the live demo linked below!<br>
 
-![Simply To-Do Demo](public/Simply.png)
+![Simply To-Do Demo](public/Simply2.png)
 
 ## Features
 
